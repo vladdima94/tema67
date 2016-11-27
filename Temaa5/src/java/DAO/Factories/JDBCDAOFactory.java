@@ -5,6 +5,7 @@
  */
 package DAO.Factories;
 
+import Config.ConfigClass;
 import DAO.DAO;
 import DAO.ResultsDAOJDBC;
 import DAO.SchoolDAOJDBC;
@@ -30,17 +31,17 @@ public class JDBCDAOFactory implements DAOFactory{
     }
     
     @Override
-    public DAO getDAO(String type) {
-        if(classesLoaded == false || type == null) return null;
+    public DAO getDAO(int type) {
+        if(classesLoaded == false) return null;
         switch(type)
         {
-            case "student" :{
+            case ConfigClass.STUDENT_DAO :{
                 return new StudentDAOJDBC();
             }
-            case "school" :{
+            case ConfigClass.SCHOOL_DAO :{
                 return new SchoolDAOJDBC();
             }
-            case "results" :{
+            case ConfigClass.RESULTS_DAO :{
                 return new ResultsDAOJDBC();
             }
             default: return null;

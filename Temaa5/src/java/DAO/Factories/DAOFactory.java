@@ -12,5 +12,5 @@ import DAO.DAO;
  * @author Vlad
  */
 public interface DAOFactory {
-    public DAO getDAO(String type);
+    public DAO getDAO(int type);
 }

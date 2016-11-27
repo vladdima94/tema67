@@ -5,25 +5,16 @@
  */
 package Beans;
 
+import Config.ConfigClass;
 import DAO.Factories.AbstractFactory;
-import DAO.StudentDAOJDBC;
+import DAO.StudentDAO;
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -93,69 +84,14 @@ public class StudentBean implements Serializable{
     
     public void addStudToDB()
     {
-        StudentDAOJDBC addStudToDB = (StudentDAOJDBC)AbstractFactory.getInstance("JDBC").getDAO("student");
+        StudentDAO addStudToDB = (StudentDAO)AbstractFactory.getInstance(ConfigClass.IMPLEMENTATION_USED).getDAO(ConfigClass.STUDENT_DAO);
         addStudToDB.addStudToDB(this);
-//        Connection conn = null;
-//        try {
-//            Class.forName("oracle.jdbc.driver.OracleDriver");
-//            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE",
-//                    "userFunctions", "usrFnct");
-//            conn.setAutoCommit(true);
-//            this.prepareString();
-//
-//            String insertStudStmt = "INSERT INTO studentTBL(studentID, studentName, studentPassword, studentType, preferences) VALUES(?, ?, ?, ?, ?)";
-//            PreparedStatement insertStudPrepStmt = conn.prepareStatement(insertStudStmt);
-//            insertStudPrepStmt.setInt(1, this.ID);
-//            insertStudPrepStmt.setString(2, this.name);
-//            insertStudPrepStmt.setString(3, this.password);
-//            insertStudPrepStmt.setString(4, this.type);
-//            insertStudPrepStmt.setString(4, this.preferencesAsString);
-//            insertStudPrepStmt.executeQuery();
-//        } catch (ClassNotFoundException | SQLException ex) {
-//            Logger.getLogger(SchoolBean.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally
-//        {
-//            if(conn != null) try {
-//                conn.close();
-//            } catch (SQLException ex) {
-//                Logger.getLogger(SchoolBean.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
     }
     
     public static void addStudsToDB(List<StudentBean> studs)
     {
-        StudentDAOJDBC addStudToDB = (StudentDAOJDBC)AbstractFactory.getInstance("JDBC").getDAO("student");
+        StudentDAO addStudToDB = (StudentDAO)AbstractFactory.getInstance(ConfigClass.IMPLEMENTATION_USED).getDAO(ConfigClass.STUDENT_DAO);
         addStudToDB.addStudsToDB(studs);
-//        Connection conn = null;
-//        try {
-//            Class.forName("oracle.jdbc.driver.OracleDriver");
-//            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE",
-//                    "userFunctions", "usrFnct");
-//            conn.setAutoCommit(true);
-//            
-//            String insertStudStmt = "INSERT INTO studentTBL(studentID, studentName, studentPassword, studentType, preferences) VALUES(?, ?, ?, ?, ?)";
-//            PreparedStatement insertStudPrepStmt;
-//            for(StudentBean stud : studs){
-//                stud.prepareString();
-//                insertStudPrepStmt = conn.prepareStatement(insertStudStmt);
-//                insertStudPrepStmt.setInt(1, stud.getID());
-//                insertStudPrepStmt.setString(2, stud.getName());
-//                insertStudPrepStmt.setString(3, stud.getPassword());
-//                insertStudPrepStmt.setString(4, stud.getType());
-//                insertStudPrepStmt.setString(5, stud.getPreferencesAsString());
-//                insertStudPrepStmt.executeQuery();
-//            }
-//        } catch (ClassNotFoundException | SQLException ex) {
-//            Logger.getLogger(SchoolBean.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally
-//        {
-//            if(conn != null) try {
-//                conn.close();
-//            } catch (SQLException ex) {
-//                Logger.getLogger(SchoolBean.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
     }
     
     
@@ -184,50 +120,8 @@ public class StudentBean implements Serializable{
     
     public String testUser()
     {
-        
-        StudentDAOJDBC addStudToDB = (StudentDAOJDBC)AbstractFactory.getInstance("JDBC").getDAO("student");
+        StudentDAO addStudToDB = (StudentDAO)AbstractFactory.getInstance(ConfigClass.IMPLEMENTATION_USED).getDAO(ConfigClass.STUDENT_DAO);
         return addStudToDB.testUser(this);
-//        if(this.name != null && this.name.length() > 0 && this.password != null && this.password.length() > 0)
-//        {
-//            Connection conn = null;
-//            try {
-//                Class.forName("oracle.jdbc.driver.OracleDriver");
-//                conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE",
-//                        "userFunctions", "usrFnct");
-//                
-//                String stmtSQL = "SELECT studentid, studentName, STUDENTTYPE, preferences FROM STUDENTTBL WHERE studentName LIKE ? AND studentpassword LIKE ?";
-//                PreparedStatement stmt =conn.prepareStatement(stmtSQL);
-//                stmt.setString(1, this.name);
-//                stmt.setString(2, this.password);
-//                ResultSet rows = stmt.executeQuery();
-//                if(rows.getFetchSize() < 1) return "login.xhtml";
-//                while(rows.next()){
-//                    HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-//                    String type = rows.getString("STUDENTTYPE");
-//                    session.setAttribute("username", rows.getString("STUDENTNAME"));
-//                    session.setAttribute("type", type);
-//                    this.ID = rows.getInt("STUDENTID");
-//                    this.preferencesAsString = rows.getString("PREFERENCES");
-//                    this.preferences.clear();
-//                    this.password = null;
-//                    this.loadPreferences();
-//                    if(type.equals("admin"))
-//                        return "schoolsPreferences.xhtml";
-//                    else
-//                        return "editStudent.xhtml";
-//                }
-//            } catch (ClassNotFoundException | SQLException ex) {
-//                Logger.getLogger(StudentBean.class.getName()).log(Level.SEVERE, null, ex);
-//            } finally
-//            {
-//                if(conn != null) try {
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(StudentBean.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        }
-//        return "login.xhtml";
     }
 
     
@@ -246,40 +140,8 @@ public class StudentBean implements Serializable{
     public void updateSchool(SchoolBean school)
     {
         
-        StudentDAOJDBC addStudToDB = (StudentDAOJDBC)AbstractFactory.getInstance("JDBC").getDAO("student");
+        StudentDAO addStudToDB = (StudentDAO)AbstractFactory.getInstance(ConfigClass.IMPLEMENTATION_USED).getDAO(ConfigClass.STUDENT_DAO);
         addStudToDB.updateSchool(this);
-        
-//        if(school != null)
-//        {
-//            for(int i = 0 ; i < this.preferences.size();++i)
-//            {
-//                if(this.preferences.get(i).getName().equals(school.getName()))
-//                    this.preferences.remove(i);
-//            }
-//            this.prepareString();
-//        }
-//        Connection conn = null;
-//        try {
-//            Class.forName("oracle.jdbc.driver.OracleDriver");
-//            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE",
-//                    "userFunctions", "usrFnct");
-//            conn.setAutoCommit(true);
-//            
-//            String updateStudent = "UPDATE STUDENTTBL SET PREFERENCES = ? WHERE STUDENTID = ?";
-//            PreparedStatement stmt = conn.prepareStatement(updateStudent);
-//            stmt.setInt(2, this.ID);
-//            stmt.setString(1, this.preferencesAsString);
-//            stmt.executeQuery();
-//        } catch (ClassNotFoundException | SQLException ex) {
-//            Logger.getLogger(SchoolBean.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally
-//        {
-//            if(conn != null) try {
-//                conn.close();
-//            } catch (SQLException ex) {
-//                Logger.getLogger(SchoolBean.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }  
     }
     
     
@@ -311,35 +173,7 @@ public class StudentBean implements Serializable{
     
     public List<Map.Entry<String, String>> getResults()
     {
-        
-        StudentDAOJDBC addStudToDB = (StudentDAOJDBC)AbstractFactory.getInstance("JDBC").getDAO("student");
+        StudentDAO addStudToDB = (StudentDAO)AbstractFactory.getInstance(ConfigClass.IMPLEMENTATION_USED).getDAO(ConfigClass.STUDENT_DAO);
         return addStudToDB.getResults();
-        
-//        Map<String, String> output = new TreeMap();
-//        Connection conn = null;
-//        try {
-//            Class.forName("oracle.jdbc.driver.OracleDriver");
-//            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE",
-//                    "userFunctions", "usrFnct");
-//            conn.setAutoCommit(true);
-//            
-//            String updateStudent = "SELECT STUDENTNAME, SCHOOLNAME FROM RESULTSTBL";
-//            PreparedStatement stmt = conn.prepareStatement(updateStudent);
-//            ResultSet rows = stmt.executeQuery();
-//            while(rows.next())
-//            {
-//                output.put(rows.getString("STUDENTNAME"), rows.getString("SCHOOLNAME"));
-//            }
-//        } catch (ClassNotFoundException | SQLException ex) {
-//            Logger.getLogger(SchoolBean.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally
-//        {
-//            if(conn != null) try {
-//                conn.close();
-//            } catch (SQLException ex) {
-//                Logger.getLogger(SchoolBean.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }  
-//        return new ArrayList<>(output.entrySet());
     }
 }
