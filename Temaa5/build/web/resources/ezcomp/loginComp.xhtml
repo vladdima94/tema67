@@ -12,8 +12,8 @@
         <composite:implementation>
             <h:form>
                 <h:outputLabel value="Login"/><br/>
-                <h:outputLabel value="Username "/><h:inputText id="username" value="#{studentBean.name}" required="true"/><br/>
-                <h:outputLabel value="Password "/><h:inputText id="password" value="#{studentBean.password}" required="true"/><br/>
+                <h:outputLabel value="Username "/><h:inputText id="username" value="#{studentBean.studentName}" required="true"/><br/>
+                <h:outputLabel value="Password "/><h:inputText id="password" value="#{studentBean.studentPassword}" required="true"/><br/>
                 <h:commandButton id="submit" value="Submit" action="#{studentBean.testUser()}"/>
             </h:form>
         </composite:implementation>

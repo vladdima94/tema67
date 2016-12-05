@@ -5,7 +5,6 @@
  */
 package Config;
 
-import DAO.Factories.JDBCDAOFactory;
 
 /**
  *
@@ -26,5 +25,5 @@ public final class ConfigClass {
     /**
      * Use this implementation of persistence layer. Change it from here.
      */
-    public static final int IMPLEMENTATION_USED = IMPLEMENTATION_JDBC;
+    public static final int IMPLEMENTATION_USED = IMPLEMENTATION_JPA_CriteriaAPI;
 }

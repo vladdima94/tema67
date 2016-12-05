@@ -13,14 +13,14 @@
         </composite:interface>
         <composite:implementation>
             <h:form>
-                <p:selectOneMenu id="schoolsList" value="#{schoolBean.name}" style="width:150px">
+                <p:selectOneMenu id="schoolsList" value="#{schoolBean.schoolName}" style="width:150px">
                     <p:ajax listener="#{schoolBean.schoolChange()}" update="preferencesListSchool" />
                     <f:selectItem itemLabel="Select School" itemValue="" noSelectionOption="true" />
                     <f:selectItems value="#{schoolBean.getSchoolsNames()}" />
                 </p:selectOneMenu>
                 <p:dataTable id="preferencesListSchool" var="student" value="#{schoolBean.preferences}">
                     <p:column headerText="student">
-                        <h:inputText value="#{student.name}"/>
+                        <h:inputText value="#{student.studentName}"/>
                     </p:column>
                     <p:column headerText="Actions">
                         <p:commandButton value="UP" actionListener="#{schoolBean.moveUp(schoolBean.preferences.indexOf(student))}" update="preferencesListSchool"/>

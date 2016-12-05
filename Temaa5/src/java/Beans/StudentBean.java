@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
@@ -23,13 +27,16 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean( name = "studentBean")
 @SessionScoped
 public class StudentBean implements Serializable{
-    private String name;
-    private String password;
-    private String type;
-    private int ID;
-    private List<SchoolBean> preferences = new ArrayList();
+    
+    private int studentID;
+    private String studentName;
+    private String studentPassword;
+    private String studentType;
     private String preferencesAsString;
+    
+    private List<SchoolBean> preferences = new ArrayList();
     private SchoolBean asignedTo;
+    
     
     public void setAsignedTo(SchoolBean newSchool)
     {
@@ -41,16 +48,16 @@ public class StudentBean implements Serializable{
         return this.asignedTo;
     }
 
-    public String getName() {
-        return name;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getStudentPassword() {
+        return studentPassword;
     }
 
-    public int getID() {
-        return ID;
+    public int getStudentID() {
+        return studentID;
     }
 
     public List<SchoolBean> getPreferences()
@@ -58,28 +65,28 @@ public class StudentBean implements Serializable{
         return preferences;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStudentName(String name) {
+        this.studentName = name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setStudentPassword(String password) {
+        this.studentPassword = password;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setStudentID(int ID) {
+        this.studentID = ID;
     }
 
     public void setPreferences(List<SchoolBean> preferences) {
         this.preferences = preferences;
     }
 
-    public String getType() {
-        return type;
+    public String getStudentType() {
+        return studentType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setStudentType(String type) {
+        this.studentType = type;
     }
     
     public void addStudToDB()
@@ -100,7 +107,7 @@ public class StudentBean implements Serializable{
         StringBuilder temp = new StringBuilder();
         for(SchoolBean school : this.preferences)
         {
-            temp.append(school.getName()).append(" ");
+            temp.append(school.getSchoolName()).append(" ");
         }
         this.preferencesAsString = temp.toString();
     }
@@ -132,7 +139,7 @@ public class StudentBean implements Serializable{
         for(String pref: prefs)
         {
             SchoolBean newSchool = new SchoolBean();
-            newSchool.setName(pref);
+            newSchool.setSchoolName(pref);
             this.preferences.add(newSchool);
         }
     }
@@ -165,7 +172,7 @@ public class StudentBean implements Serializable{
     {
         for(int i = 0 ; i < preferences.size(); ++i)
         {
-                if(preferences.get(i).getName().equals(student.getName())){
+                if(preferences.get(i).getSchoolName().equals(student.getSchoolName())){
                         preferences.remove(i);
                 }
         }
@@ -175,5 +182,23 @@ public class StudentBean implements Serializable{
     {
         StudentDAO addStudToDB = (StudentDAO)AbstractFactory.getInstance(ConfigClass.IMPLEMENTATION_USED).getDAO(ConfigClass.STUDENT_DAO);
         return addStudToDB.getResults();
+    }
+    
+    
+    public void setPrefAsStr()
+    {
+        if(this.preferences != null)
+        {
+            StringBuilder builder = new StringBuilder();
+            int size = preferences.size();
+            for(int i = 0;; ++i)
+            {
+                SchoolBean temp = preferences.get(i);
+                builder.append(temp.getSchoolName());
+                if(i == (size - 1)) break;
+                builder.append(" ");
+            }
+            this.preferencesAsString = builder.toString();
+        }
     }
 }

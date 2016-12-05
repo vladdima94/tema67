@@ -37,10 +37,10 @@ public class StudentDAOJDBC implements StudentDAO{
 
             String insertStudStmt = "INSERT INTO studentTBL(studentID, studentName, studentPassword, studentType, preferences) VALUES(?, ?, ?, ?, ?)";
             PreparedStatement insertStudPrepStmt = conn.prepareStatement(insertStudStmt);
-            insertStudPrepStmt.setInt(1, student.getID());
-            insertStudPrepStmt.setString(2, student.getName());
-            insertStudPrepStmt.setString(3, student.getPassword());
-            insertStudPrepStmt.setString(4, student.getType());
+            insertStudPrepStmt.setInt(1, student.getStudentID());
+            insertStudPrepStmt.setString(2, student.getStudentName());
+            insertStudPrepStmt.setString(3, student.getStudentPassword());
+            insertStudPrepStmt.setString(4, student.getStudentType());
             insertStudPrepStmt.setString(4, student.getPreferencesAsString());
             insertStudPrepStmt.executeQuery();
             insertStudPrepStmt.close();
@@ -69,10 +69,10 @@ public class StudentDAOJDBC implements StudentDAO{
             for(StudentBean stud : studs){
                 stud.prepareString();
                 insertStudPrepStmt = conn.prepareStatement(insertStudStmt);
-                insertStudPrepStmt.setInt(1, stud.getID());
-                insertStudPrepStmt.setString(2, stud.getName());
-                insertStudPrepStmt.setString(3, stud.getPassword());
-                insertStudPrepStmt.setString(4, stud.getType());
+                insertStudPrepStmt.setInt(1, stud.getStudentID());
+                insertStudPrepStmt.setString(2, stud.getStudentName());
+                insertStudPrepStmt.setString(3, stud.getStudentPassword());
+                insertStudPrepStmt.setString(4, stud.getStudentType());
                 insertStudPrepStmt.setString(5, stud.getPreferencesAsString());
                 insertStudPrepStmt.executeQuery();
                 insertStudPrepStmt.close();
@@ -91,8 +91,8 @@ public class StudentDAOJDBC implements StudentDAO{
 
     @Override
     public String testUser(StudentBean student) {
-        String username = student.getName();
-        String password = student.getPassword();
+        String username = student.getStudentName();
+        String password = student.getStudentPassword();
         if(username != null && username.length() > 0 && password != null && password.length() > 0)
         {
             Connection conn = null;
@@ -116,10 +116,10 @@ public class StudentDAOJDBC implements StudentDAO{
                     String type = rows.getString("STUDENTTYPE");
                     session.setAttribute("username", rows.getString("STUDENTNAME"));
                     session.setAttribute("type", type);
-                    student.setID(rows.getInt("STUDENTID"));
+                    student.setStudentID(rows.getInt("STUDENTID"));
                     student.setPreferencesAsString(rows.getString("PREFERENCES"));
                     student.getPreferences().clear();
-                    student.setPassword(null);
+                    student.setStudentPassword(null);
                     student.loadPreferences();
                     rows.close();
                     stmt.close();
@@ -152,7 +152,7 @@ public class StudentDAOJDBC implements StudentDAO{
             
             String updateStudent = "UPDATE STUDENTTBL SET PREFERENCES = ? WHERE STUDENTID = ?";
             PreparedStatement stmt = conn.prepareStatement(updateStudent);
-            stmt.setInt(2, student.getID());
+            stmt.setInt(2, student.getStudentID());
             stmt.setString(1, student.getPreferencesAsString());
             stmt.executeQuery();
         } catch (SQLException ex) {
@@ -214,7 +214,7 @@ public class StudentDAOJDBC implements StudentDAO{
                 String studentName = results.getString("STUDENTNAME");
                 String studentPref = results.getString("PREFERENCES");
                 StudentBean newStudBean = new StudentBean();
-                newStudBean.setName(studentName);
+                newStudBean.setStudentName(studentName);
                 newStudBean.setPreferencesAsString(studentPref);
                 output.add(newStudBean);
             }
