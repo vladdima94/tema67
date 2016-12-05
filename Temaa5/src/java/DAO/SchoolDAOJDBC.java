@@ -41,9 +41,9 @@ public class SchoolDAOJDBC implements SchoolDAO{
                 int maxapply = rows.getInt("MAXAPPLY");
                 String schoolPref = rows.getString("PREFERENCES");
                 SchoolBean temp = new SchoolBean();
-                temp.setName(schoolName);
-                temp.setID(schoolID);
-                temp.setMaxStuds(maxapply);
+                temp.setSchoolName(schoolName);
+                temp.setSchoolID(schoolID);
+                temp.setMaxApply(maxapply);
                 temp.setPreferencesAsString(schoolPref);
                 output.add(temp);
             }
@@ -74,9 +74,9 @@ public class SchoolDAOJDBC implements SchoolDAO{
             
             String insertSchoolStmt = "INSERT INTO SCHOOLSTBL(schoolID, schoolName, maxApply, preferences) VALUES(?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(insertSchoolStmt);
-            stmt.setInt(1, school.getID());
-            stmt.setString(2, school.getName());
-            stmt.setInt(3, school.getMaxStuds());
+            stmt.setInt(1, school.getSchoolID());
+            stmt.setString(2, school.getSchoolName());
+            stmt.setInt(3, school.getMaxApply());
             stmt.setString(4, school.getPreferencesAsString());
             stmt.executeQuery();
             stmt.close();
@@ -105,9 +105,9 @@ public class SchoolDAOJDBC implements SchoolDAO{
             for(SchoolBean school : schools){
                 school.prepareString();
                 stmt = conn.prepareStatement(insertSchoolStmt);
-                stmt.setInt(1, school.getID());
-                stmt.setString(2, school.getName());
-                stmt.setInt(3, school.getMaxStuds());
+                stmt.setInt(1, school.getSchoolID());
+                stmt.setString(2, school.getSchoolName());
+                stmt.setInt(3, school.getMaxApply());
                 stmt.setString(4, school.getPreferencesAsString());
                 stmt.executeQuery();
                 stmt.close();
@@ -134,7 +134,7 @@ public class SchoolDAOJDBC implements SchoolDAO{
             
             String deleteSchoolStmt = "DELETE FROM SCHOOLSTBL WHERE ? = SCHOOLID";
             PreparedStatement stmt = conn.prepareStatement(deleteSchoolStmt);
-            stmt.setInt(1, school.getID());
+            stmt.setInt(1, school.getSchoolID());
             stmt.executeQuery();
             stmt.close();
         } catch (SQLException ex) {
@@ -161,7 +161,7 @@ public class SchoolDAOJDBC implements SchoolDAO{
             String deleteSchoolStmt = "UPDATE SCHOOLSTBL SET PREFERENCES = ? WHERE SCHOOLNAME LIKE ?";
             PreparedStatement stmt = conn.prepareStatement(deleteSchoolStmt);
             stmt.setString(1, school.getPreferencesAsString());
-            stmt.setString(2, school.getName());
+            stmt.setString(2, school.getSchoolName());
             stmt.executeQuery();
             stmt.close();
         } catch (SQLException ex) {
@@ -222,7 +222,7 @@ public class SchoolDAOJDBC implements SchoolDAO{
             
             String getSchoolPrefs = "SELECT SCHOOLID, PREFERENCES FROM SCHOOLSTBL WHERE SCHOOLNAME LIKE ?";
             PreparedStatement stmt = conn.prepareStatement(getSchoolPrefs);
-            stmt.setString(1, school.getName());
+            stmt.setString(1, school.getSchoolName());
             ResultSet rows = stmt.executeQuery();
             while(rows.next())
             {
@@ -230,7 +230,7 @@ public class SchoolDAOJDBC implements SchoolDAO{
                 for(String preference : pref)
                 {
                     StudentBean newStud = new StudentBean();
-                    newStud.setName(preference);
+                    newStud.setStudentName(preference);
                     preferencesLocal.add(newStud);
                 }
             }

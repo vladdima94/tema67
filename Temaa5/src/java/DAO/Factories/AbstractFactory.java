@@ -28,11 +28,15 @@ public abstract class AbstractFactory {
             }
             case ConfigClass.IMPLEMENTATION_JPA_JP_QL:
             {
-                
+                if(instance instanceof JPQLDAOFactory)return instance;      // 
+                instance = new JPQLDAOFactory();                            //  asa trebuie pus si la cazul tau bogdan
+                return instance;   
             }
             case ConfigClass.IMPLEMENTATION_JPA_CriteriaAPI:
             {
-                
+                if(instance instanceof JDBCDAOFactory)return instance;      // 
+                instance = new CriteriaAPIDAOFactory();                            //  asa trebuie pus si la cazul tau bogdan
+                return instance;   
             }
             default: return null;
         }

@@ -32,8 +32,8 @@ public class ResultsDAOJDBC implements ResultsDAO{
             for(StudentBean stud : results)
             {
                 stmt = conn.prepareStatement(getSchoolsStmt);
-                stmt.setString(1, stud.getName());
-                stmt.setString(2, stud.getAsignedTo().getName());
+                stmt.setString(1, stud.getStudentName());
+                stmt.setString(2, stud.getAsignedTo().getSchoolName());
                 stmt.execute();
                 stmt.close();
             }

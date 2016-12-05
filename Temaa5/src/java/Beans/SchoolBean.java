@@ -10,6 +10,7 @@ import DAO.Factories.AbstractFactory;
 import DAO.ResultsDAO;
 import DAO.SchoolDAO;
 import DAO.StudentDAO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,12 +26,15 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean( name = "schoolBean")
 @SessionScoped
-public class SchoolBean {
-    private int ID;
-    private String name;
-    private int maxStuds;
-    private List<StudentBean> preferences = new ArrayList();
+public class SchoolBean implements Serializable{
+    
+    private int schoolID;
+    private String schoolName;
+    private int maxApply;
     private String preferencesAsString;
+    
+    
+    private List<StudentBean> preferences = new ArrayList();
     private StudentBean asignedTo;
     
     public void setAsignedTo(StudentBean newStudent)
@@ -43,16 +47,16 @@ public class SchoolBean {
         return this.asignedTo;
     }
 
-    public String getName() {
-        return name;
+    public String getSchoolName() {
+        return schoolName;
     }
 
     public List<StudentBean> getPreferences() {
         return preferences;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSchoolName(String name) {
+        this.schoolName = name;
     }
 
     public void setPreferences(List<StudentBean> preferences) {
@@ -70,14 +74,14 @@ public class SchoolBean {
             SchoolBean newSchool = new SchoolBean();
             
             int id = i+1;
-            newStud.setID(id);
-            newStud.setName("S" + (i+1));
-            newStud.setPassword("asd");
-            newStud.setType("user");
+            newStud.setStudentID(id);
+            newStud.setStudentName("S" + (i+1));
+            newStud.setStudentPassword("asd");
+            newStud.setStudentType("user");
             
-            newSchool.setID(id);
-            newSchool.setName("C" + (i+1));
-            newSchool.setMaxStuds(10);
+            newSchool.setSchoolID(id);
+            newSchool.setSchoolName("C" + (i+1));
+            newSchool.setMaxApply(10);
             
             studs.add(newStud);
             schools.add(newSchool);
@@ -89,6 +93,7 @@ public class SchoolBean {
             Collections.shuffle(studs, random);
             List<StudentBean> currentPref = school.getPreferences();
             for(StudentBean stud : studs) currentPref.add(stud);
+            school.setPrefAsStr();
         }
         for(StudentBean stud : studs)
         {
@@ -96,6 +101,7 @@ public class SchoolBean {
             Collections.shuffle(schools, random);
             List<SchoolBean> currentPref = stud.getPreferences();
             for(SchoolBean school : schools) currentPref.add(school);
+            stud.setPrefAsStr();
         }
         StudentBean.addStudsToDB(studs);
         SchoolBean.addSchoolsToDB(schools);
@@ -109,20 +115,20 @@ public class SchoolBean {
     }
             
 
-    public int getMaxStuds() {
-        return maxStuds;
+    public int getMaxApply() {
+        return maxApply;
     }
 
-    public void setMaxStuds(int maxStuds) {
-        this.maxStuds = maxStuds;
+    public void setMaxApply(int maxStuds) {
+        this.maxApply = maxStuds;
     }
 
-    public int getID() {
-        return ID;
+    public int getSchoolID() {
+        return schoolID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setSchoolID(int ID) {
+        this.schoolID = ID;
     }
     
     public void addSchoolToDB()
@@ -152,7 +158,7 @@ public class SchoolBean {
         StringBuilder temp = new StringBuilder();
         for(StudentBean stud : this.preferences)
         {
-            temp.append(stud.getName()).append(" ");
+            temp.append(stud.getStudentName()).append(" ");
         }
         if(temp.length() > 0)this.preferencesAsString = temp.toString();
     }
@@ -204,11 +210,11 @@ public class SchoolBean {
         
         for(SchoolBean school : schools)
         {
-            tempSchools.put(school.getName(), school);
+            tempSchools.put(school.getSchoolName(), school);
         }
         for(StudentBean student : students)
         {
-            tempStuds.put(student.getName(), student);
+            tempStuds.put(student.getStudentName(), student);
         }
         
         for(StudentBean stud : students)
@@ -229,7 +235,6 @@ public class SchoolBean {
                 preferences.add(tempStuds.get(pref));
             }
         }
-        
         StudentBean testStudent;
         SchoolBean testSchool;
         while( (testStudent = getFreeStudent(students)) != null)
@@ -265,8 +270,8 @@ public class SchoolBean {
     {
             for(StudentBean man : this.preferences)
             {
-                    if(testMan.getName().equals(man.getName())) return true;
-                    if(this.asignedTo.getName().equals(man.getName())) return false;
+                    if(testMan.getStudentName().equals(man.getStudentName())) return true;
+                    if(this.asignedTo.getStudentName().equals(man.getStudentName())) return false;
             }
             return true;
     }
@@ -287,5 +292,20 @@ public class SchoolBean {
         return addStudToDB.getSchoolsNames();
     }
     
-    
+    public void setPrefAsStr()
+    {
+        if(this.preferences != null)
+        {
+            StringBuilder builder = new StringBuilder();
+            int size = preferences.size();
+            for(int i = 0;; ++i)
+            {
+                StudentBean temp = preferences.get(i);
+                builder.append(temp.getStudentName());
+                if(i == (size - 1)) break;
+                builder.append(" ");
+            }
+            this.preferencesAsString = builder.toString();
+        }
+    }
 }

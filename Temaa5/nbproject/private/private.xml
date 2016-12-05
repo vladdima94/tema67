@@ -4,18 +4,25 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/ResultsDAO.java</file>
-            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/SchoolDAOJDBC.java</file>
-            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/DAO.java</file>
-            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/Factories/JDBCDAOFactory.java</file>
+            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/ResultsDAOJPQL.java</file>
+            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/ResultsDAOCriteriaAPI.java</file>
+            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/Filters/LoginFilter.java</file>
+            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/Factories/JPQLDAOFactory.java</file>
+            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/Entity/ResultsEntity.java</file>
+            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/SchoolDAOCriteriaAPI.java</file>
+            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/Config/ConfigClass.java</file>
+            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/Entity/SchoolEntity.java</file>
+            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/SchoolDAOJPQL.java</file>
+            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/Entity/StudentEntity.java</file>
             <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/web/resources/ezcomp/schoolsTable.xhtml</file>
             <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/ResultsDAOJDBC.java</file>
             <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/Beans/SchoolBean.java</file>
-            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/Factories/AbstractFactory.java</file>
             <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/SchoolDAO.java</file>
+            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/Factories/AbstractFactory.java</file>
+            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/StudentDAOCriteriaAPI.java</file>
             <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/Beans/StudentBean.java</file>
-            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/StudentDAO.java</file>
             <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/StudentDAOJDBC.java</file>
-            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/Factories/DAOFactory.java</file>
+            <file>file:/C:/Users/Vlad/Documents/NetBeansProjects/Temaa5/src/java/DAO/StudentDAO.java</file>
         </group>
     </open-files>
 </project-private>

@@ -12,12 +12,12 @@
         <composite:interface>
         </composite:interface>
         <composite:implementation>
-            <p:panel header="#{studentBean.name}" style="margin-bottom:10px;">
+            <p:panel header="#{studentBean.studentName}" style="margin-bottom:10px;">
                 <h:form>
                     <h:outputLabel value="Preferences "/>
                     <p:dataTable id="preferencesList" var="school" value="#{studentBean.preferences}">
                         <p:column headerText="School">
-                            <h:inputText value="#{school.name}"/>
+                            <h:inputText value="#{school.schoolName}"/>
                         </p:column>
                         <p:column headerText="Actions">
                             <p:commandButton value="UP" actionListener="#{studentBean.moveUp(school, studentBean.preferences.indexOf(school))}" update="preferencesList"/>
